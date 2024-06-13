@@ -1,6 +1,6 @@
 import S from "./style";
 
-import PhotoDrop from "../../components/PhotoDrop";
+import PhotoListAndDrop from "../../components/PhotoListAndDrop";
 import PhotoControls from "../../components/PhotoControls";
 
 const Main = () => {
@@ -8,7 +8,7 @@ const Main = () => {
     <S.Main>
       <S.MainBackground />
       <S.PhotoContainer>
-        <PhotoDrop />
+        <PhotoListAndDrop />
         <PhotoControls />
       </S.PhotoContainer>
     </S.Main>
