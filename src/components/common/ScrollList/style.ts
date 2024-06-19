@@ -22,7 +22,7 @@ const S = {
   `,
 
   ScrollContent: styled.div`
-    height: 300px;
+    max-height: 300px;
     overflow-y: scroll;
   `,
 
