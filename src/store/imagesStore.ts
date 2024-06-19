@@ -9,7 +9,7 @@ export const useImageStore = create<IImagesStore>((set) => ({
   images: [],
   addImages: (newImages) => {
     set(({ images }) => ({
-      images: images.concat(newImages),
+      images: [...new Set([...images, ...newImages])],
     }));
   },
 }));

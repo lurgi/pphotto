@@ -6,21 +6,11 @@ import Button from "../common/Button";
 import UploadImage from "../UploadedImage";
 import ScrollList from "../common/ScrollList";
 
-import image1 from "../../assets/images/cuteDog1.jpeg";
-import image2 from "../../assets/images/cuteDog2.jpeg";
-
 import { useRef, useState } from "react";
 import { useImageStore } from "../../store/imagesStore";
 
 const PhotoListAndDrop = () => {
   const setImages = useImageStore((state) => state.addImages);
-  setImages(
-    Array.from({ length: 20 }, (_, index) => {
-      if (index % 2 === 1) {
-        return image1;
-      } else return image2;
-    })
-  );
   const images = useImageStore((state) => state.images);
   const [isDragging, setIsDragging] = useState(false);
   const fileInput = useRef<HTMLInputElement | null>(null);
@@ -37,7 +27,7 @@ const PhotoListAndDrop = () => {
 
   const handleFiles = (files: File[]) => {
     const newImages = files.map((file) => URL.createObjectURL(file));
-    setImages(images.concat(newImages));
+    setImages(newImages);
   };
 
   const handleDrop = (e: React.DragEvent<HTMLElement>) => {
