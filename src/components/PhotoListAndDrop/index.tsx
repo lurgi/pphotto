@@ -9,8 +9,7 @@ import ScrollList from "../common/ScrollList";
 import image1 from "../../assets/images/cuteDog1.jpeg";
 import image2 from "../../assets/images/cuteDog2.jpeg";
 
-import { useState } from "react";
-import XScrollList from "../XScrollList";
+import { useEffect, useState } from "react";
 
 const PhotoListAndDrop = () => {
   const [images, setImages] = useState<string[]>(
@@ -20,9 +19,24 @@ const PhotoListAndDrop = () => {
       } else return image2;
     })
   );
+  const [isDragging, setIsDragging] = useState(false);
+
+  useEffect(() => {
+    console.log(isDragging);
+  }, [isDragging]);
 
   const handleDragOver = (e: React.DragEvent<HTMLElement>) => {
     e.preventDefault();
+  };
+
+  const handleDragEnter = (e: React.DragEvent<HTMLElement>) => {
+    e.preventDefault();
+    setIsDragging(true);
+  };
+
+  const handleDragLeave = (e: React.DragEvent<HTMLElement>) => {
+    e.preventDefault();
+    setIsDragging(false);
   };
 
   const handleDrop = (e: React.DragEvent<HTMLElement>) => {
@@ -30,6 +44,7 @@ const PhotoListAndDrop = () => {
     const files = Array.from(e.dataTransfer.files);
     const newImages = files.map((file) => URL.createObjectURL(file));
     setImages(images.concat(newImages));
+    setIsDragging(false);
   };
 
   return (
@@ -44,10 +59,21 @@ const PhotoListAndDrop = () => {
         </ScrollList>
       )}
 
-      <S.PhotoDrop onDragOver={handleDragOver} onDrop={handleDrop}>
+      <S.PhotoDrop
+        onDragEnter={handleDragEnter}
+        onDragLeave={handleDragLeave}
+        onDragOver={handleDragOver}
+        onDrop={handleDrop}
+        isDragging={isDragging}
+      >
         <MdOutlinePhotoLibrary size={40} />
         <p>사진을 이곳에 드래그 하세요</p>
-        <Button>
+        <Button
+          onDragEnter={handleDragEnter}
+          onDragOver={handleDragOver}
+          onDragLeave={handleDragLeave}
+          onDrop={handleDrop}
+        >
           <GrDocumentTransfer />
           <p>이미지 업로드</p>
         </Button>

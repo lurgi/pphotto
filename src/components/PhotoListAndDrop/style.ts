@@ -38,7 +38,7 @@ const S = {
     border-radius: 15px;
   `,
 
-  PhotoDrop: styled.div`
+  PhotoDrop: styled.div<{ isDragging: boolean }>`
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -47,8 +47,9 @@ const S = {
     box-sizing: border-box;
 
     padding: 10px;
-
     width: 100%;
+
+    background-color: ${(props) => props.isDragging && COLOR_PALETTE.HIGHLIGHT_MEDIUM};
 
     border: 2px dashed ${COLOR_PALETTE.HIGHLIGHT_DARK};
     border-radius: 10px;

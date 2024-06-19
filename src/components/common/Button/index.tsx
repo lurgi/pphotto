@@ -1,8 +1,10 @@
-import { PropsWithChildren } from "react";
+import { ButtonHTMLAttributes, PropsWithChildren } from "react";
 import S from "./styled";
 
-const Button = ({ children }: PropsWithChildren) => {
-  return <S.Button>{children}</S.Button>;
+interface IButton extends ButtonHTMLAttributes<HTMLButtonElement> {}
+
+const Button = ({ children, ...props }: PropsWithChildren<IButton>) => {
+  return <S.Button {...props}>{children}</S.Button>;
 };
 
 export default Button;
