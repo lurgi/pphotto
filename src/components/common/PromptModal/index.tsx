@@ -61,10 +61,12 @@ const PromptModal: React.FC<PromptModalProps> = ({ isOpen, setIsOpen, onCancel, 
   return (
     <S.ModalOverlay isOpen={isOpen} onClick={handleOutsideClick}>
       <S.ModalContainer ref={dialog}>
+        <S.ModalTitle>이미지의 비율을 입력하세요.</S.ModalTitle>
+        <S.ModalDescription>1~99의 숫자를 입력하세요.</S.ModalDescription>
         <S.ModalInput type="text" value={inputValue} onChange={(e) => setInputValue(e.target.value)} />
         <S.ModalFooter>
-          <Button onClick={handleCancel}>Cancel</Button>
-          <Button onClick={handleConfirm}>Confirm</Button>
+          <Button onClick={handleCancel}>취소</Button>
+          <Button onClick={handleConfirm}>확인</Button>
         </S.ModalFooter>
       </S.ModalContainer>
     </S.ModalOverlay>
