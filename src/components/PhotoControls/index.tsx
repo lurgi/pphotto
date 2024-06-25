@@ -6,15 +6,23 @@ import { RiFolderTransferLine } from "react-icons/ri";
 import PromptModal from "../common/PromptModal";
 import { useImageStore } from "../../store/imagesStore";
 
+import JSZip from "jszip";
+import { saveAs } from "file-saver";
+
 const PhotoControls = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { getCompressedAllImages, isLoading: isCompressLoading } = useImageStore();
 
   const handleDownload = async (quality: string) => {
     const compressedImages = await getCompressedAllImages(Number(quality));
-    //TODO: isLoading이 true인 경우, Loading 모달을 띄우고, Loading이 끝나는 경우 getCompressedAllImages()의 값을 사용자의 컴퓨터에 다운로드 한다.
 
-    console.log(compressedImages);
+    const zip = new JSZip();
+    compressedImages.forEach((file, index) => {
+      zip.file(`image-${index}.jpg`, file);
+    });
+
+    const zipBlob = await zip.generateAsync({ type: "blob" });
+    saveAs(zipBlob, "images.zip");
   };
 
   return (
