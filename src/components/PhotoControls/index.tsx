@@ -6,7 +6,7 @@ import { RiFolderTransferLine } from "react-icons/ri";
 import PromptModal from "../common/PromptModal";
 
 const PhotoControls = () => {
-  const [isModalOpen, setIsModalOpen] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <S.Container>

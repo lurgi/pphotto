@@ -66,7 +66,7 @@ const PhotoListAndDrop = () => {
         <MdOutlinePhotoLibrary size={40} />
         <p>사진을 이곳에 드래그 하세요</p>
         <Button onClick={() => fileInput.current?.click()}>
-          <input onChange={handleClick} ref={fileInput} type="file" hidden />
+          <input onChange={handleClick} ref={fileInput} multiple type="file" hidden />
           <GrDocumentTransfer />
           <p>이미지 업로드</p>
         </Button>

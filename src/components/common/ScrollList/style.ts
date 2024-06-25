@@ -17,6 +17,7 @@ const Fade = styled.div<{ visible: boolean }>`
 
 const S = {
   ScrollContainer: styled.div`
+    width: 100%;
     position: relative;
     box-sizing: border-box;
   `,

@@ -43,6 +43,7 @@ const S = {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 8px;
 
     box-sizing: border-box;
 

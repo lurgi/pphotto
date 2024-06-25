@@ -7,6 +7,9 @@ const COLOR_PALETTE = {
   GARY_LIGHT: "#95afc0",
   GRAY_MEDIUM: "#535c68",
   GRAY_DARK: "#333",
+
+  BLACK: "#000",
+  WHITE: "#fff",
 };
 
 export default COLOR_PALETTE;
