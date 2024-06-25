@@ -26,8 +26,7 @@ const PhotoListAndDrop = () => {
   };
 
   const handleFiles = (files: File[]) => {
-    const newImages = files.map((file) => URL.createObjectURL(file));
-    setImages(newImages);
+    setImages(files);
   };
 
   const handleDrop = (e: React.DragEvent<HTMLElement>) => {
@@ -51,7 +50,7 @@ const PhotoListAndDrop = () => {
         <ScrollList>
           <S.PhotoImages>
             {images.map((image, index) => (
-              <UploadImage key={index} image={image} />
+              <UploadImage key={index} image={URL.createObjectURL(image)} />
             ))}
           </S.PhotoImages>
         </ScrollList>

@@ -2,9 +2,10 @@ import { create } from "zustand";
 import compressImage from "../utils/compressImage";
 
 interface IImagesStore {
-  images: string[];
-  addImages: (newImages: string[]) => void;
-  compressAllImages: (quality: number) => string[];
+  images: File[];
+  addImages: (newImages: File[]) => void;
+  getCompressedAllImages: (quality: number) => Promise<File[]>;
+  isLoading: boolean;
 }
 
 export const useImageStore = create<IImagesStore>((set, get) => ({
@@ -29,8 +30,23 @@ export const useImageStore = create<IImagesStore>((set, get) => ({
    *
    * @param quality Compress할 비율을 입력합니다. 1~99 범위의 숫자.
    */
-  compressAllImages: (quality: number) => {
+  getCompressedAllImages: async (quality: number) => {
     const images = get().images;
-    return images.map((image) => image);
+    set(() => ({ isLoading: true }));
+
+    const compressedImages: File[] = [];
+    for await (const image of images) {
+      try {
+        const compressedImage = await compressImage({ image, quality });
+        compressedImages.push(compressedImage);
+      } catch (e) {
+        //TODO: Error핸들링
+      }
+    }
+
+    set(() => ({ isLoading: false }));
+    return compressedImages;
   },
+
+  isLoading: false,
 }));
