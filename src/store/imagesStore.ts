@@ -5,6 +5,7 @@ interface IImagesStore {
   images: File[];
   addImages: (newImages: File[]) => void;
   getCompressedAllImages: (quality: number) => Promise<File[]>;
+  resetImages: () => void;
   isLoading: boolean;
 }
 
@@ -26,6 +27,7 @@ export const useImageStore = create<IImagesStore>((set, get) => ({
       };
     });
   },
+
   /**
    *
    * @param quality Compress할 비율을 입력합니다. 1~99 범위의 숫자.
@@ -46,6 +48,10 @@ export const useImageStore = create<IImagesStore>((set, get) => ({
 
     set(() => ({ isLoading: false }));
     return compressedImages;
+  },
+
+  resetImages: () => {
+    set(() => ({ images: [] }));
   },
 
   isLoading: false,

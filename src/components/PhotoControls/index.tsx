@@ -1,17 +1,18 @@
 import { useState } from "react";
-import Button from "../common/Button";
 import S from "./style";
 
 import { RiFolderTransferLine } from "react-icons/ri";
-import PromptModal from "../common/PromptModal";
 import { useImageStore } from "../../store/imagesStore";
+
+import Button from "../common/Button";
 
 import JSZip from "jszip";
 import { saveAs } from "file-saver";
+import Modal from "../common/Modal";
 
 const PhotoControls = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { getCompressedAllImages, isLoading: isCompressLoading } = useImageStore();
+  const { getCompressedAllImages, resetImages, isLoading: isCompressLoading } = useImageStore();
 
   const handleDownload = async (quality: string) => {
     const compressedImages = await getCompressedAllImages(Number(quality));
@@ -23,6 +24,17 @@ const PhotoControls = () => {
 
     const zipBlob = await zip.generateAsync({ type: "blob" });
     saveAs(zipBlob, "images.zip");
+
+    resetImages();
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleConfirm = (input: string) => {
+    handleCancel();
+    handleDownload(input);
   };
 
   return (
@@ -33,8 +45,13 @@ const PhotoControls = () => {
       </Button>
 
       {/*<--MODAL--> */}
-      <PromptModal isOpen={isModalOpen} setIsOpen={setIsModalOpen} onConfirm={handleDownload} />
-      {/*TODO: Loading 모달 띄우기 */}
+      <Modal.PromptModal
+        isOpen={isModalOpen}
+        setIsOpen={setIsModalOpen}
+        onConfirm={handleConfirm}
+        onCancel={handleCancel}
+      />
+      <Modal.LoadingModal isLoading={isCompressLoading} />
     </S.Container>
   );
 };
