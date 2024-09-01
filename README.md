@@ -1,3 +1,3 @@
 사진 찍고 항상 포토샵으로 사이즈를 줄였는데, 너무 귀찮아서 사이즈 줄이는 웹 서비스를 하나 만들어보았습니다 😝   
 참고로 저는 리코 gr3를 사용중입니다 📷   
-[서비스 링크](lurgi.github.io/resize-photo/dist)
+[서비스 링크](https://lurgi.github.io/resize-photo/dist/)
